@@ -1,0 +1,95 @@
+! S1 Configuration
+!
+en
+conf t
+hostname S1
+!
+!
+vlan 2
+ name Management
+!
+vlan 11
+ name Werkstations
+!
+vlan 13
+ name DMZ
+!
+vlan 42
+ name Servers
+!
+vlan 99
+ name ParkingLot
+! 
+ip default-gateway 192.168.103.142
+!
+interface FastEthernet0/1
+ description Proxy_Server_DMZ
+ switchport access vlan 13
+ switchport mode access
+ no shutdown
+!
+interface FastEthernet0/2
+ description TFTP_Server_Network_Management
+ switchport access vlan 2
+ switchport mode access
+ no shutdown
+!
+interface FastEthernet0/3
+ description Server_Interne_servers
+ switchport access vlan 42
+ switchport mode access
+ no shutdown
+!
+interface FastEthernet0/4
+ description Server_Interne_servers
+ switchport access vlan 42
+ switchport mode access
+ no shutdown
+!
+interface FastEthernet0/5
+ description Server_Interne_servers
+ switchport access vlan 42
+ switchport mode access
+ no shutdown
+!
+interface FastEthernet0/6
+ description Werkstations_employees_Client
+ switchport access vlan 11
+ switchport mode access
+ no shutdown
+!
+interface range FastEthernet0/7 - 24
+ switchport access vlan 99
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/1
+ description Trunk_to_Router1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 2,11,13,42
+ switchport mode trunk
+ no shutdown
+!
+interface GigabitEthernet0/2
+ description Trunk_to_Router1_Backup
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 2,11,13,42
+ switchport mode trunk
+ no shutdown
+! 
+interface Vlan2
+ ip address 192.168.103.139 255.255.255.240
+ no shutdown
+!
+banner motd #Unauthorized access is prohibited.#
+!
+line con 0
+ logging synchronous
+!
+line vty 0 4
+ logging synchronous
+!
+line vty 5 15
+ logging synchronous
+!
+end

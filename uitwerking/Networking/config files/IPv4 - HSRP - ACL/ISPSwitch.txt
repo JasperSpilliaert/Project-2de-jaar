@@ -1,0 +1,38 @@
+!ISP Switch Configuration
+!
+!
+en
+conf t
+hostname ISP_Switch
+!
+vlan 99
+ name ParkingLot
+!
+interface GigabitEthernet0/1
+ description Uplink_to_ISP_Router
+ no shutdown
+!
+interface FastEthernet0/1
+ description Connection_to_Router1
+ no shutdown
+!
+interface FastEthernet0/2
+ description Connection_to_Router1_Backup
+ no shutdown
+!
+vlan 99
+ name Parking_Lot
+!
+interface range FastEthernet0/3 - 24
+ switchport mode access
+ switchport access vlan 99
+ shutdown
+!
+banner motd #Authorized Access Only#
+!
+line con 0
+ logging synchronous
+!
+line vty 0 4
+!
+end

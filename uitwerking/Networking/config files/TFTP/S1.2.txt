@@ -1,0 +1,29 @@
+!
+en
+conf t
+!
+vlan 2
+ name Management
+!
+vlan 11
+ name Werkstations
+!
+vlan 13
+ name DMZ
+!
+vlan 42
+ name Servers
+!
+vlan 99
+ name ParkingLot
+!
+ip default-gateway 192.168.103.142
+interface Vlan1
+ ip address 192.168.103.129 255.255.255.240
+ no shutdown
+ exit
+!
+ip tftp source-interface Vlan1
+!
+exit
+copy tftp running-config

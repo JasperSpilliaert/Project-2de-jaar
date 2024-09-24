@@ -1,0 +1,11 @@
+IPv6Address,HostName
+2001:db8:ac03:1::FFFB,tftp
+2001:db8:ac03:13::FFFB,CA
+2001:db8:ac03:13::FFFC,reverseProxy
+2001:db8:ac03:42::FFF7,redundantWeb
+2001:db8:ac03:42::FFF8,nextcloud
+2001:db8:ac03:42::FFF9,matrix
+2001:db8:ac03:42::FFFA,ad
+2001:db8:ac03:42::FFFB,web
+2001:db8:ac03:42::FFFC,db
+2001:db8:ac03:FFFF::FFFF,ISP

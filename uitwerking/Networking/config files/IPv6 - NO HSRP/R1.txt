@@ -1,0 +1,78 @@
+! R1 Configuration
+!
+en
+conf t  
+hostname R1
+!
+ipv6 unicast-routing
+!
+ip route 0.0.0.0 0.0.0.0 G0/0/0
+ip dhcp excluded-address 192.168.103.124 192.168.103.126
+!
+ip dhcp pool VLAN11
+ network 192.168.103.0 255.255.255.128
+ default-router 192.168.103.125
+ dns-server 192.168.103.185
+!
+ipv6 dhcp pool VLAN11_V6
+ address prefix 2001:db8:ac03:11::/64
+ dns-server 2001:db8:ac03:42::FFFA
+ exit
+! 
+interface GigabitEthernet0/0/0
+ ipv6 enable
+ ip address 192.168.103.252 255.255.255.252
+ ipv6 address 2001:db8:ac03:FFFF::FFFD/64
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ipv6 enable
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0/1.2
+ description Management_VLAN
+ ipv6 enable
+ encapsulation dot1Q 2
+ ip address 192.168.103.141 255.255.255.240
+ ipv6 address 2001:db8:ac03:1::FFFE/64
+ no shutdown
+!
+interface GigabitEthernet0/0/1.11
+ description Employees_VLAN
+ ipv6 enable
+ encapsulation dot1Q 11
+ ip address 192.168.103.125 255.255.255.128
+ ipv6 address 2001:db8:ac03:11::FFFE/64
+ ipv6 dhcp server VLAN11_V6
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ no shutdown
+!
+interface GigabitEthernet0/0/1.13
+ description DMZ_VLAN
+ ipv6 enable
+ encapsulation dot1Q 13
+ ip address 192.168.103.157 255.255.255.240
+ ipv6 address 2001:db8:ac03:13::FFFE/64
+ no shutdown
+!
+interface GigabitEthernet0/0/1.42
+ description Servers_VLAN
+ ipv6 enable
+ encapsulation dot1Q 42
+ ip address 192.168.103.189 255.255.255.224
+ ipv6 address 2001:db8:ac03:42::FFFE/64
+ no shutdown
+!
+banner motd #Unauthorized access is prohibited.#
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+!
+end

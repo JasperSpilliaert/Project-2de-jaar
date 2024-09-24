@@ -1,0 +1,77 @@
+! R1_Backup Configuration
+!
+en
+conf t
+hostname R1_Backup
+!
+ip route 0.0.0.0 0.0.0.0 G0/0/0
+ip dhcp excluded-address 192.168.103.124 192.168.103.126
+!
+ip dhcp pool VLAN11
+ network 192.168.103.0 255.255.255.128
+ default-router 192.168.103.126
+ dns-server 192.168.103.185
+!
+interface GigabitEthernet0/0/0
+ ip address 192.168.103.251 255.255.255.248
+ standby version 2
+ standby 90 ip 192.168.103.253
+ standby 90 priority 100
+ standby 90 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0/1.2
+ description Management_VLAN
+ encapsulation dot1Q 2 
+ ip address 192.168.103.140 255.255.255.240
+ standby version 2
+ standby 2 ip 192.168.103.142
+ standby 2 priority 100
+ standby 2 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0/1.11
+ description Employees_VLAN
+ encapsulation dot1Q 11
+ ip address 192.168.103.124 255.255.255.128
+ standby version 2
+ standby 11 ip 192.168.103.126
+ standby 11 priority 100
+ standby 11 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0/1.13
+ description DMZ_VLAN
+ encapsulation dot1Q 13
+ ip address 192.168.103.156 255.255.255.240
+ standby version 2
+ standby 13 ip 192.168.103.158
+ standby 13 priority 100
+ standby 13 preempt
+ no shutdown
+!
+interface GigabitEthernet0/0/1.42
+ description Servers_VLAN
+ encapsulation dot1Q 42
+ ip address 192.168.103.188 255.255.255.224
+ standby version 2
+ standby 42 ip 192.168.103.190
+ standby 42 priority 100
+ standby 42 preempt
+ no shutdown
+!
+banner motd #Unauthorized access is prohibited.#
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+!
+end

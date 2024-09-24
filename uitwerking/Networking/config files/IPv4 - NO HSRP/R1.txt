@@ -1,0 +1,57 @@
+! R1 Configuration
+!
+en
+conf t  
+hostname R1
+!
+ip route 0.0.0.0 0.0.0.0 G0/0/0
+ip dhcp excluded-address 192.168.103.124 192.168.103.126
+!
+ip dhcp pool VLAN11
+ network 192.168.103.0 255.255.255.128
+ default-router 192.168.103.125
+ dns-server 192.168.103.185
+!
+interface GigabitEthernet0/0/0
+ ip address 192.168.103.252 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0/1.2
+ description Management_VLAN
+ encapsulation dot1Q 2
+ ip address 192.168.103.141 255.255.255.240
+ no shutdown
+!
+interface GigabitEthernet0/0/1.11
+ description Employees_VLAN
+ encapsulation dot1Q 11
+ ip address 192.168.103.125 255.255.255.128
+ no shutdown
+!
+interface GigabitEthernet0/0/1.13
+ description DMZ_VLAN
+ encapsulation dot1Q 13
+ ip address 192.168.103.157 255.255.255.240
+ no shutdown
+!
+interface GigabitEthernet0/0/1.42
+ description Servers_VLAN
+ encapsulation dot1Q 42
+ ip address 192.168.103.189 255.255.255.224
+ no shutdown
+!
+banner motd #Unauthorized access is prohibited.#
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+!
+end

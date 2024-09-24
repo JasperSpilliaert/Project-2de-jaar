@@ -1,0 +1,145 @@
+! R1 Configuration
+!
+! enable + configuratie modus + naam
+!
+en
+conf t  
+hostname R1
+!
+! IPv6 aanzetten
+!
+ipv6 unicast-routing
+!
+! ACL voor PAT instellen
+!
+ip access-list standard PUBLICIP
+permit 192.168.103.0 0.0.0.255
+exit
+!
+! PAT aanzetten en ACL toekennen
+!
+ip nat inside source list PUBLICIP interface GigabitEthernet0/0/0 overload
+!
+! Route naar buiten instellen
+!
+ip route 0.0.0.0 0.0.0.0 G0/0/0
+!
+! IPv4_DHCP instellen
+!
+ip dhcp excluded-address 192.168.103.124 192.168.103.126
+!
+ip dhcp pool VLAN11
+ network 192.168.103.0 255.255.255.128
+ default-router 192.168.103.126
+ dns-server 192.168.103.185
+!
+! IPv6_DHCP instellen
+!
+ipv6 dhcp pool VLAN11_V6
+ address prefix 2001:db8:ac03:11::/64
+ dns-server 2001:db8:ac03:42::FFFA
+ exit
+!
+! Interfaces instellen
+!
+interface GigabitEthernet0/0/0
+ description Route_To_ISP
+ ipv6 enable
+ ip address 172.22.200.103 255.255.0.0
+ standby version 2
+ standby 103 ip 172.22.200.3
+ standby 103 priority 110
+ standby 103 preempt
+ ip nat outside
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ description Power_On_Interface_For_VLANs
+ ipv6 enable
+ no ip address
+ no shutdown
+!
+interface GigabitEthernet0/0/1.2
+ description Management_VLAN
+ ipv6 enable
+ encapsulation dot1Q 2
+ ip address 192.168.103.141 255.255.255.240
+ ipv6 address 2001:db8:ac03:1::FFFE/64
+ standby version 2
+ standby 2 ip 192.168.103.142
+ standby 2 priority 110
+ standby 2 preempt
+ standby 4 ipv6 2001:db8:ac03:1::FFFF/64
+ standby 4 priority 110
+ standby 4 preempt
+ ip nat inside
+ no shutdown
+!
+interface GigabitEthernet0/0/1.11
+ description Employees_VLAN
+ ipv6 enable
+ encapsulation dot1Q 11
+ ip address 192.168.103.125 255.255.255.128
+ ipv6 address 2001:db8:ac03:11::FFFE/64
+ ipv6 dhcp server VLAN11_V6
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ standby version 2
+ standby 11 ip 192.168.103.126
+ standby 11 priority 110
+ standby 11 preempt
+ standby 22 ipv6 2001:db8:ac03:11::FFFF/64
+ standby 22 priority 110
+ standby 22 preempt
+ ip nat inside
+ no shutdown
+!
+interface GigabitEthernet0/0/1.13
+ description DMZ_VLAN
+ ipv6 enable
+ encapsulation dot1Q 13
+ ip address 192.168.103.157 255.255.255.240
+ ipv6 address 2001:db8:ac03:13::FFFE/64
+ standby version 2
+ standby 13 ip 192.168.103.158
+ standby 13 priority 110
+ standby 13 preempt
+ standby 26 ipv6 2001:db8:ac03:13::FFFF/64
+ standby 26 priority 110
+ standby 26 preempt
+ ip nat inside
+ no shutdown
+!
+interface GigabitEthernet0/0/1.42
+ description Servers_VLAN
+ ipv6 enable
+ encapsulation dot1Q 42
+ ip address 192.168.103.189 255.255.255.224
+ ipv6 address 2001:db8:ac03:42::FFFE/64
+ standby version 2
+ standby 42 ip 192.168.103.190
+ standby 42 priority 110
+ standby 42 preempt
+ standby 84 ipv6 2001:db8:ac03:42::FFFF/64
+ standby 84 priority 110
+ standby 84 preempt
+ ip nat inside
+ no shutdown
+!
+banner motd #Unauthorized access is prohibited.#
+!
+line con 0
+ logging synchronous
+!
+line aux 0
+!
+line vty 0 4
+ logging synchronous
+!
+!
+no ip http server
+no ip http secure-server
+ip nat inside source static tcp 192.168.103.155 80 172.22.200.3 80 extendable
+ip nat inside source static tcp 192.168.103.155 443 172.22.200.3 443 extendable
+!
+end

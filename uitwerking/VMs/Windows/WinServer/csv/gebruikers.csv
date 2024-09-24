@@ -1,0 +1,13 @@
+Voornaam;Achternaam;Initialen;Gebruikersnaam;Email;Password;OU
+Jasper;Spilliaert;JS;Jasper;JasperSpilliaert@g03-fft.internal;23User24;OU=NetworkManagement,OU=DomainUsers,DC=ad,DC=g03-fft,DC=internal
+Simon;Dierickx;SD;Simon;SimonDierickx@g03-fft.internal;23User24;OU=NetworkManagement,OU=DomainUsers,DC=ad,DC=g03-fft,DC=internal
+Jorik;Braet;JB;Jorik;JorikBraet@g03-fft.internal;23User24;OU=WorkstationsEmployees,OU=DomainUsers,DC=ad,DC=g03-fft,DC=internal
+Wout;Verfaillie;WV;Wout;WoutVerfaillie@g03-fft.internal;23User24;OU=WorkstationsEmployees,OU=DomainUsers,DC=ad,DC=g03-fft,DC=internal
+Leonard;VanIseghem;LVI;Leonard;LeonardVanIseghem@g03-fft.internal;23User24;OU=WorkstationsEmployees,OU=DomainUsers,DC=ad,DC=g03-fft,DC=internal
+;;;PCAdmin1;;23pc24;OU=NetworkManagement,OU=PCs,OU=DomainWorkstations,DC=ad,DC=g03-fft,DC=internal
+;;;PCAdmin2;;23pc24;OU=NetworkManagement,OU=PCs,OU=DomainWorkstations,DC=ad,DC=g03-fft,DC=internal
+;;;PCGebruiker1;;23pc24;OU=WorkstationsEmployees,OU=PCs,OU=DomainWorkstations,DC=ad,DC=g03-fft,DC=internal
+;;;PCGebruiker2;;23pc24;OU=WorkstationsEmployees,OU=PCs,OU=DomainWorkstations,DC=ad,DC=g03-fft,DC=internal
+;;;WindowsClient;;23pc24;OU=WinClient,OU=NetworkManagement,OU=PCs,OU=DomainWorkstations,DC=ad,DC=g03-fft,DC=internal
+
+
