@@ -1,5 +1,4 @@
-# System Engineering Project
-
+# Systeembeheer project
 
 | Naam                | GitHub gebruikersnaam                                         |
 | :------------------ | :------------------------------------------------------------ |
@@ -8,12 +7,6 @@
 | Leonard Van Iseghem | [LeonardVanIseghem01](https://github.com/LeonardVanIseghem01) |
 | Wout Verfaillie     | [woutverfaillie](https://github.com/woutverfaillie)           |
 | Simon Dierickx      | [SimonDierickx](https://github.com/SimonDierickx)             |
-
-Dit is de repository voor het projectvak System Engineering Project.
-
-:exclamation: In elke map is `README.md` steeds het startpunt van de documentatie. **Neem deze goed door!**
-
-:bulb: Bij templates wordt er gebruik gemaakt van `<!-- Markdown comments. -->`. Open deze met een teksteditor en vervang deze door wat er gevraagd wordt. Previews tonen deze comments default niet, vandaar dat het belangrijk is om een teksteditor te gebruiken.
 
 ## Inhoud GitHub repo
 
